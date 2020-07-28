@@ -42,7 +42,7 @@ EspHandler::EspHandler(int txPin, int rxPin,
                     int espBaud = 9600)
 {
     if ((txPin<2 && txPin>-1) || (rxPin<2 && rxPin>-1)) {
-        throw "Can't choose tx and rx in pins 0 and 1."
+        throw "Can't choose TX and RX in pins 0 and 1."
     }
     else {
         this->txPin = txPin;
@@ -51,7 +51,7 @@ EspHandler::EspHandler(int txPin, int rxPin,
     }
 
     if ((ssid=="") || (passwd=="")) {
-        throw "SSID and password can't be empty!"
+        throw "Network SSID and password can't be empty!"
     }
     else {
     this->ssid = ssid;
