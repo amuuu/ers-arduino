@@ -53,7 +53,7 @@ public:
     SoftwareSerial* esp;
     int txPin, rxPin;
     String ssid,passwd;
-    String serverIp, serverUri;
+    String serverIp, uri;
 
 private:
     ///
@@ -67,7 +67,7 @@ public:
     void espBegin(); // done
     bool resetEsp(); // done
     bool connectToWifi(); // done 
-    bool changeEspBaud(int newBaudRate); // done
+    void changeEspBaud(int newBaudRate); // done
     bool sendData(String data);
 };  
 

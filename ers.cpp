@@ -36,16 +36,17 @@ void Ers::initErsParams() {
 
 
 void Ers::updateBuffer() {
-    for (int i=0; i<inputs.numSensors; i++) {
+    for (int i=0; i<inputs->numSensors; i++) {
         if (inputs->inputData[i] == HIGH) {
             if (!inputs->inputIsTriggered[i]) {
                 addToBuffer(inputs->inputPins[i]);
                 inputs->inputIsTriggered[i] = true;
             }
         }
-        else 
+        else {
             if (!inputs->inputIsTriggered[i])
-                !inputs->inputIsTriggered[i] = false;
+                inputs->inputIsTriggered[i] = false;
+        }
     }
     delay(SHORT_DELAY);
 }
@@ -66,7 +67,7 @@ void Ers::sendBuffer() {
             data += "-";
     }
 
-    esp.sendData(data);
+    esp->sendData(data);
 }
 
 
@@ -116,27 +117,27 @@ EspHandler::EspHandler(int txPin, int rxPin,
 }
 
 void EspHandler::espBegin() {
-    esp.begin(espBaud);
+    esp->begin(espBaud);
 }
 
 bool EspHandler::resetEsp() {
-    esp.println("AT+RST");
+    esp->println("AT+RST");
     delay(MEDIUM_DELAY);
-    if (esp.find("OK"))
+    if (esp->find("OK"))
         return true;
     else
         return false;
 }
 
 bool EspHandler::connectToWifi() {
-    esp.println("AT+CWMODE=3");
+    esp->println("AT+CWMODE=3");
     delay(MEDIUM_DELAY);
 
     String connect_cmd = "AT+CWJAP=\""+ssid+"\",\""+passwd+"\"";
-    esp.println(connect_cmd);
+    esp->println(connect_cmd);
     delay(LONG_DELAY);
     
-    if (esp.find("OK"))
+    if (esp->find("OK"))
         return true;
     else
         connectToWifi();
@@ -146,17 +147,17 @@ bool EspHandler::connectToWifi() {
 
 void EspHandler::changeEspBaud(int newBaudRate) {
     String cmd = "AT+CIOBAUD="+String(newBaudRate);
-    esp.println(cmd);
+    esp->println(cmd);
 }
 
 bool EspHandler::sendData(String data) {
     
     // Handling the TCP conncetion
-    esp.println();
+    esp->println();
     String tcpCmd = "AT+CIPSTART=\"TCP\",\"" + serverIp + "\",80";
-    esp.println(tcpCmd);
+    esp->println(tcpCmd);
     
-    if (!esp.find("OK"))
+    if (!esp->find("OK"))
       return false;
     
     delay(MEDIUM_DELAY);
@@ -164,21 +165,21 @@ bool EspHandler::sendData(String data) {
 
   // Number of the characters to be sent.
     String charLenCmd = "AT+CIPSEND=" + String(data.length()) + "\r\n";
-    esp.print(charLenCmd);  
+    esp->print(charLenCmd);  
   
     delay(SHORT_DELAY);
   
-    if (esp.find(">")) {
-        esp.println(postRequest);        
-        if (esp.find("SEND OK")) {
-            while (esp.available()) {
-                String tmpResp = esp.readString();
+    if (esp->find(">")) {
+        esp->println(data);        
+        if (esp->find("SEND OK")) {
+            while (esp->available()) {
+                String tmpResp = esp->readString();
                 //Serial.print("tmpresp");
                 //Serial.print(tmpResp);
                 //Serial.println();
             }
             // close the connection
-            esp.println("AT+CIPCLOSE");
+            esp->println("AT+CIPCLOSE");
         }  
     }
   
@@ -204,7 +205,7 @@ InputHandler::InputHandler(int numSensors, int* sensorPins) {
 
 void InputHandler::initArrays() {
     for (int i=0; i<numSensors; i++) {
-        pinMode(sensorPins[i], INPUT);
+        pinMode(inputPins[i], INPUT);
         inputData[i] = -1;
         inputIsTriggered[i] = false;
     }
