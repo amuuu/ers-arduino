@@ -54,7 +54,7 @@ private:
     void _addToBuffer(int triggeredPin);
     void _sendBuffer();
     //bool _resetErsParams();
-}
+};
 
 
 
@@ -76,7 +76,7 @@ public:
 private:
     _initArrays();
     _resetArrays();
-}
+};
 
 
 
@@ -106,4 +106,6 @@ public:
     bool connectToWifi(); // done 
     bool changeEspBaud(int newBaudRate); // done
     bool sendData(String data);
-}
+};  
+
+#endif
