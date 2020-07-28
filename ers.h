@@ -46,6 +46,7 @@ public:
 
     ~Ers();
     void updateBuffer();
+    void printBuffer();
     
 
 private:

@@ -70,6 +70,16 @@ void Ers::_sendBuffer() {
 }
 
 
+void Ers::printBuffer() {
+    Serial.println("::::::BUFFER::::::");    
+    for (int i=0; i<bufferSize; i++) {
+        Serial.print(buffer[i]);
+        Serial.print(" ");
+    }
+    Serial.println();
+}
+
+
 
 EspHandler::EspHandler(int txPin, int rxPin,
                     String ssid, String passwd,
