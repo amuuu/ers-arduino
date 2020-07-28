@@ -3,16 +3,11 @@
 Ers ers;
 
 void setup() {
-  ers = new Ers(0,
-                    10, 2, {3, 4},
-                    10, 11,
-                    "thessid", "passwd",
-                    "192.168.0.1", "/",
-                    9600);
+  Serial.begin(9600);  
+
+  ers = new Ers(0, 10, 2, {3, 4}, 10, 11, "thessid", "passwd", "192.168.0.1", "/", 9600);
 
   ers.esp.espBegin();
-  Serial.begin(9600);
-  
   ers.esp.resetEsp();
   ers.esp.connectToWifi();
 
@@ -20,11 +15,8 @@ void setup() {
 }
 
 void loop() {
-
   ers.inputs.readData();
-
   ers.printBuffer();
   ers.updateBuffer();
-
-  delay(1000);
+  delay(MEDIUM_DELAY);
 }
