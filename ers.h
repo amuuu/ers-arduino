@@ -36,8 +36,8 @@ public:
     void readData();
 
 private:
-    initArrays();
-    resetArrays();
+    void initArrays();
+    //void resetArrays();
 };
 
 
@@ -108,7 +108,7 @@ public:
     
 
 private:
-    bool initErsParams();
+    void initErsParams();
     void addToBuffer(int triggeredPin);
     void sendBuffer();
     //bool _resetErsParams();

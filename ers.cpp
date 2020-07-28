@@ -36,16 +36,16 @@ void Ers::initErsParams() {
 
 
 void Ers::updateBuffer() {
-    for (int i=0; i<NUM_PIR_SENSORS; i++) {
-        if (inputs.inputData[i] == HIGH) {
-            if (!inputs.inputIsTriggered[i]) {
-                addToBuffer(pirPins[i]);
-                pirTriggers[i] = true;
+    for (int i=0; i<inputs.numSensors; i++) {
+        if (inputs->inputData[i] == HIGH) {
+            if (!inputs->inputIsTriggered[i]) {
+                addToBuffer(inputs->inputPins[i]);
+                inputs->inputIsTriggered[i] = true;
             }
         }
         else 
-            if (!inputs.inputIsTriggered[i])
-                !inputs.inputIsTriggered[i] = false;
+            if (!inputs->inputIsTriggered[i])
+                !inputs->inputIsTriggered[i] = false;
     }
     delay(SHORT_DELAY);
 }
@@ -202,7 +202,7 @@ InputHandler::InputHandler(int numSensors, int* sensorPins) {
 
 }
 
-InputHandler::initArrays() {
+void InputHandler::initArrays() {
     for (int i=0; i<numSensors; i++) {
         pinMode(sensorPins[i], INPUT);
         inputData[i] = -1;
@@ -210,7 +210,7 @@ InputHandler::initArrays() {
     }
 }
 
-InputHandler::readData() {
+void InputHandler::readData() {
     for (int i=0; i<numSensors; i++) {
         inputData[i] = digitalRead(inputPins[i]);
         delay(SHORT_DELAY);
