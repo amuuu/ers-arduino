@@ -24,11 +24,11 @@ Ers::Ers(int mode,
         esp = new EspHandler(txPin, rxPin, ssid, passwd, serverIp, uri, espBaud);
     }
 
-    _initErsParams();
-    _currentBufferIndex = 0;
+    initErsParams();
+    currentBufferIndex = 0;
 }
 
-void Ers::_initErsParams() {
+void Ers::initErsParams() {
     for (int i=0; i<bufferSize; i++) {
         buffer[i]=0;
     }
@@ -50,15 +50,15 @@ void Ers::updateBuffer() {
     delay(SHORT_DELAY);
 }
 
-void Ers::_addToBuffer(int triggeredPin) {
-    buffer[_currentBufferIndex++] = triggeredPin;
+void Ers::addToBuffer(int triggeredPin) {
+    buffer[currentBufferIndex++] = triggeredPin;
     if (currentBufferIndex == bufferSize) {
-        _sendBuffer();        
-        _currentBufferIndex = 0;
+        sendBuffer();        
+        currentBufferIndex = 0;
     }
 }
 
-void Ers::_sendBuffer() {
+void Ers::sendBuffer() {
     String data="";
     for (int i=0; i<bufferSize; i++) {
         data += String(buffer[i]);
@@ -202,7 +202,7 @@ InputHandler::InputHandler(int numSensors, int* sensorPins) {
 
 }
 
-InputHandler::_initArrays() {
+InputHandler::initArrays() {
     for (int i=0; i<numSensors; i++) {
         pinMode(sensorPins[i], INPUT);
         inputData[i] = -1;
