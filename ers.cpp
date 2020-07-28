@@ -174,6 +174,7 @@ bool EspHandler::sendData(String data) {
         if (esp->find("SEND OK")) {
             while (esp->available()) {
                 String tmpResp = esp->readString();
+                /* to be added */
                 //Serial.print("tmpresp");
                 //Serial.print(tmpResp);
                 //Serial.println();
