@@ -35,6 +35,27 @@ void Ers::_initErsParams() {
 }
 
 
+void Ers::updateBuffer() {
+    for (int i=0; i<NUM_PIR_SENSORS; i++) {
+        if (inputs.inputData[i] == HIGH) {
+            if (!inputs.inputIsTriggered[i]) {
+                addToBuffer(pirPins[i]);
+                pirTriggers[i] = true;
+            }
+        }
+        else 
+            if (!inputs.inputIsTriggered[i])
+                !inputs.inputIsTriggered[i] = false;
+    }
+    delay(SHORT_DELAY);
+}
+
+void Ers::_addToBuffer(int triggeredPin) {
+
+}
+
+
+
 
 EspHandler::EspHandler(int txPin, int rxPin,
                     String ssid, String passwd,

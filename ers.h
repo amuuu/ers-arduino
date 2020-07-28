@@ -45,11 +45,12 @@ public:
         int espBaud);
 
     ~Ers();
-    
+    void updateBuffer();
     
 
 private:
     bool _initErsParams();
+    void _addToBuffer(int triggeredPin);
     //bool _resetErsParams();
 }
 
