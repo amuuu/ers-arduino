@@ -9,12 +9,20 @@ Released under GPL :)
 #include "Arduino.h"
 #include <SoftwareSerial.h>
 
+const int LONG_DELAY = 5000;
+const int MEDIUM_DELAY = 1000;
+const int SHORT_DELAY = 200;
+
 const int MAX_BUFFER_SIZE = 100;
 const int MAX_INPUT_PIN_NUM = 10;
+
 
 class Ers
 {
 public:
+    int mode; // 0 normal,
+              // 1 only read from sensors (and don't send)
+    
     int bufferSize;
     int buffer[MAX_BUFFER_SIZE];
     
@@ -28,12 +36,13 @@ private:
     int _currentBufferIndex;
 
 public:
-    Ers(int bufferSize, int numSensors,
+    Ers(int mode,
+        int bufferSize, int numSensors,
         int* sensorPins,
         int txPin, int rxPin,
         String ssid, String passwd,
         String serverIp, String uri,
-        int espBaud = 9600);
+        int espBaud);
 
     ~Ers();
     
@@ -41,7 +50,7 @@ public:
 
 private:
     bool _initErsParams();
-    bool _resetErsParams();
+    //bool _resetErsParams();
 }
 
 
@@ -52,16 +61,18 @@ class InputHandler
 public:    
     int numSensors;
     int* inputPins;
-
-private:
-    int* _inputData;
-    int* _inputIsTriggered;
+    int* inputData;
+    bool* inputIsTriggered;
 
 public:
     InputHandler(int numSensors, int* sensorPins);
     ~InputHandler();
 
     void readData();
+
+private:
+    _initArrays();
+    _resetArrays();
 }
 
 
