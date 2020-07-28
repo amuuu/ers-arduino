@@ -104,6 +104,5 @@ public:
     bool resetEsp(); // done
     bool connectToWifi(); // done 
     bool changeEspBaud(int newBaudRate); // done
-
-
+    bool sendData(String data);
 }

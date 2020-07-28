@@ -59,7 +59,14 @@ void Ers::_addToBuffer(int triggeredPin) {
 }
 
 void Ers::_sendBuffer() {
-    
+    String data="";
+    for (int i=0; i<bufferSize; i++) {
+        data += String(buffer[i]);
+        if (i != bufferSize-1)
+            data += "-";
+    }
+
+    esp.sendData(data);
 }
 
 
@@ -132,7 +139,41 @@ void EspHandler::changeEspBaud(int newBaudRate) {
     esp.println(cmd);
 }
 
+bool EspHandler::sendData(String data) {
+    
+    // Handling the TCP conncetion
+    esp.println();
+    String tcpCmd = "AT+CIPSTART=\"TCP\",\"" + serverIp + "\",80";
+    esp.println(tcpCmd);
+    
+    if (!esp.find("OK"))
+      return false;
+    
+    delay(MEDIUM_DELAY);
 
+
+  // Number of the characters to be sent.
+    String charLenCmd = "AT+CIPSEND=" + String(data.length()) + "\r\n";
+    esp.print(charLenCmd);  
+  
+    delay(SHORT_DELAY);
+  
+    if (esp.find(">")) {
+        esp.println(postRequest);        
+        if (esp.find("SEND OK")) {
+            while (esp.available()) {
+                String tmpResp = esp.readString();
+                //Serial.print("tmpresp");
+                //Serial.print(tmpResp);
+                //Serial.println();
+            }
+            // close the connection
+            esp.println("AT+CIPCLOSE");
+        }  
+    }
+  
+    delay(MEDIUM_DELAY);
+}
 
 
 
