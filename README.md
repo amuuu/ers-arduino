@@ -2,6 +2,7 @@
 ERS is an Arduino library that provides abstraction for sensor reads and ESP8266 that makes the process of reading and sending data to servers much easier.
 
 A simple thing that normally takes hundreds of codes to make happen, is abstracted and can be done in just a few lines:
+
 ```
 #include "ers.h"
 
@@ -27,3 +28,5 @@ void loop() {
 ```
 
 You can easily modify the library for your projects and make it do what's needed.
+
+NOTE: This library isn't added to official libraries of Arduino yet and it'll be added as soon as it's get tested and has a proper documentation :)
