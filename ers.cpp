@@ -131,3 +131,10 @@ InputHandler::_initArrays() {
     }
 }
 
+InputHandler::readData() {
+    for (int i=0; i<numSensors; i++) {
+        inputData[i] = digitalRead(inputPins[i]);
+        delay(SHORT_DELAY);
+    }
+    delay(SHORT_DELAY);
+}
