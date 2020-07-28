@@ -51,9 +51,16 @@ void Ers::updateBuffer() {
 }
 
 void Ers::_addToBuffer(int triggeredPin) {
-
+    buffer[_currentBufferIndex++] = triggeredPin;
+    if (currentBufferIndex == bufferSize) {
+        _sendBuffer();        
+        _currentBufferIndex = 0;
+    }
 }
 
+void Ers::_sendBuffer() {
+    
+}
 
 
 

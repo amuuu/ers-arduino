@@ -51,6 +51,7 @@ public:
 private:
     bool _initErsParams();
     void _addToBuffer(int triggeredPin);
+    void _sendBuffer();
     //bool _resetErsParams();
 }
 
