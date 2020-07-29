@@ -1,5 +1,5 @@
 /*
-Ers.H - Easy Read (from any sensor) and Send (through ESP8266) for Arduino.
+Ers.h - Easy Read (from any sensor) and Send (through ESP8266) for Arduino.
 Created by AMU, July and August 2020
 Released under GPL :)
 */ 
