@@ -15,7 +15,10 @@ Ers::Ers(int mode,
         this->bufferSize = bufferSize;
     }
     else {
-        throw "Buffer size can't be that big, max size is" + String(MAX_BUFFER_SIZE);
+        //throw "Buffer size can't be that big, max size is" + String(MAX_BUFFER_SIZE);
+        String errMsg = "Buffer size can't be that big, max size is" + String(MAX_BUFFER_SIZE);
+        Serial.println(errMsg);
+        return;
     }
     
     inputs = new InputHandler(numSensors, sensorPins);
@@ -88,7 +91,10 @@ EspHandler::EspHandler(int txPin, int rxPin,
                     int espBaud = 9600)
 {
     if ((txPin<2 && txPin>-1) || (rxPin<2 && rxPin>-1)) {
-        throw "Can't choose TX and RX in pins 0 and 1."
+        String errMsg = "Can't choose TX and RX in pins 0 and 1.";
+        Serial.println(errMsg);
+        return;
+        //throw "Can't choose TX and RX in pins 0 and 1."
     }
     else {
         this->txPin = txPin;
@@ -97,7 +103,9 @@ EspHandler::EspHandler(int txPin, int rxPin,
     }
 
     if ((ssid=="") || (passwd=="")) {
-        throw "Network SSID and password can't be empty!"
+        String errMsg = "Network SSID and password can't be empty!";
+        Serial.println(errMsg);
+        // throw "Network SSID and password can't be empty!"
     }
     else {
     this->ssid = ssid;
@@ -105,7 +113,9 @@ EspHandler::EspHandler(int txPin, int rxPin,
     }
 
     if (serverIp=="") {
-        throw "Server IP can't be empty."
+        String errMsg = "Server IP can't be empty.";
+        Serial.println(errMsg);
+        // throw "Server IP can't be empty."
     }
     else {
         this->serverIp = serverIp;
@@ -192,7 +202,10 @@ bool EspHandler::sendData(String data) {
 
 InputHandler::InputHandler(int numSensors, int* sensorPins) {
     if (numSensors != sizeof(sensorPins)/sizeof(int)) {
-        throw "Number of sensors doesn't match the sensor pin array."
+        String errMsg = "Number of sensors doesn't match the sensor pin array.";
+        Serial.println(errMsg);
+        return;
+        // throw "Number of sensors doesn't match the sensor pin array."
     }
     else {
         this->numSensors = numSensors;

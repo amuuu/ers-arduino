@@ -27,4 +27,4 @@ void loop() {
 
 You can easily modify the library for your projects and make it do what's needed.
 
-NOTE: This library isn't added to official libraries of Arduino yet and it'll be added as soon as it's get tested and has a proper documentation :)
+NOTE: This library isn't added to official libraries of Arduino yet and it will be added as soon as it gets tested and has a proper documentation :)
