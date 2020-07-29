@@ -105,6 +105,7 @@ EspHandler::EspHandler(int txPin, int rxPin,
     if ((ssid=="") || (passwd=="")) {
         String errMsg = "Network SSID and password can't be empty!";
         Serial.println(errMsg);
+        return;
         // throw "Network SSID and password can't be empty!"
     }
     else {
@@ -115,6 +116,7 @@ EspHandler::EspHandler(int txPin, int rxPin,
     if (serverIp=="") {
         String errMsg = "Server IP can't be empty.";
         Serial.println(errMsg);
+        return;
         // throw "Server IP can't be empty."
     }
     else {
