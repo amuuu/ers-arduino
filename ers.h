@@ -31,7 +31,6 @@ public:
 
 public:
     InputHandler(int numSensors, int* sensorPins);
-    //~InputHandler();
 
     void readData();
 
@@ -63,11 +62,10 @@ public:
                 String ssid, String passwd,
                 String serverIp, String uri,
                 int espBaud = 9600);
-    //~EspHandler();
-    void espBegin(); // done
-    bool resetEsp(); // done
-    bool connectToWifi(); // done 
-    void changeEspBaud(int newBaudRate); // done
+    void espBegin();
+    bool resetEsp();
+    bool connectToWifi();
+    void changeEspBaud(int newBaudRate);
     bool sendData(String data);
 };  
 
@@ -102,7 +100,6 @@ public:
         String serverIp, String uri,
         int espBaud);
 
-    //~Ers();
     void updateBuffer();
     void printBuffer();
     
@@ -111,6 +108,5 @@ private:
     void initErsParams();
     void addToBuffer(int triggeredPin);
     void sendBuffer();
-    //bool _resetErsParams();
 };
 #endif
